@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUSD converter to NGN</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <h1 class="top">BUSD to NGN Converter  <span>by Hardamberg</span></h1>
+  <div class="main">
+        <div class="main2">
+            <label for="busd-amount">Enter BUSD amount:</label>
+            <input type="number" id="busd-amount" min="0">
+        </div>
+
+      <div>
+        <button onclick="convertBUSD()">Convert</button>
+    </div>
+    <h1 id="result"></h1>
+  </div>
+  
+
+  <script>
+    function convertBUSD() {
+      const busdAmount = document.getElementById("busd-amount").value;
+
+      // Make API request to fetch the conversion rate
+      const url = "https://api.coingecko.com/api/v3/simple/price?ids=binance-usd&vs_currencies=ngn";
+      $.get(url, function(data) {
+        const conversionRate = data["binance-usd"]["ngn"];
+        const ngnAmount = busdAmount * conversionRate;
+
+        // Display the result
+        document.getElementById("result").innerHTML = `${busdAmount} BUSD = ${ngnAmount} NGN`;
+      });
+    }
+  </script>
+</body>
+</html>
